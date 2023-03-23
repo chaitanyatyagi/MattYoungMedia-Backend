@@ -5,15 +5,14 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/login/success", (req, res) => {
-
     if (req.user) {
-        res.status(200).json({
+        return res.status(200).json({
             status: "success",
             message: "Successfully Loged In",
             user: req.user,
         });
     } else {
-        res.status(403).json({ error: true, message: "Not Authorized" });
+        return res.status(403).json({ error: true, message: "Not Authorized" });
     }
 });
 
@@ -30,7 +29,7 @@ router.route('/google').get(
 
 router.route('/google/callback').get(
     passport.authenticate('google', {
-        successRedirect: 'http://localhost:3000/daily-image',
+        successRedirect: 'https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app/daily-image',
         failureRedirect: '/login/failed'
     })
 );
@@ -51,7 +50,7 @@ router.get("/logout", (req, res) => {
                 message: "Something went wrong!"
             })
         }
-        res.redirect("http://localhost:3000/daily-image");
+        res.redirect("https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app/daily-image");
     });
 
 });

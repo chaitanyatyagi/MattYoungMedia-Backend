@@ -88,7 +88,13 @@ exports.forgotPassword = async (req, res, next) => {
         let token = "123456"
         await User.updateOne({ email }, { resetTokenForPassword: token, resetTokenTime: Date.now() + 10 * 60 * 1000 })
         await sendMail(email, `<p>Please reset your password at this link - <a href="http://127.0.0.1:3000/reset-password?token=${token}">Click</a></p>`, "Reset Your Password",)
-        next()
+
+        return res.json(
+            {
+                verdict: 1,
+                message: 'working'
+            }
+        )
 
     }
     catch (error) {
