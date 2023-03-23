@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser")
 const passport = require('passport');
 const googleAuthRouter = require("./routes/googleAuthRoute")
 const authRouter = require("./routes/authRoute")
-const PORT = 1808
+const PORT = process.env.PORT || 1808
 
 app.use(bodyParser.urlencoded({ extended: true }));
 

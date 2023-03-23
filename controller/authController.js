@@ -79,16 +79,16 @@ exports.forgotPassword = async (req, res, next) => {
     try {
         const email = req.body.email
         const user = await User.find({ email })
-        if (!user) {
+        if (user.length == 0) {
             return res.status(200).json({
-                status: "error",
+                status: "fault",
                 message: "No user found. Please register first !"
             })
         }
         let token = "123456"
-        const x = await User.updateOne({ email }, { resetTokenForPassword: token, resetTokenTime: Date.now() + 10 * 60 * 1000 })
-        console.log(x)
+        await User.updateOne({ email }, { resetTokenForPassword: token, resetTokenTime: Date.now() + 10 * 60 * 1000 })
         await sendMail(email, `<p>Please reset your password at this link - <a href="http://127.0.0.1:3000/reset-password?token=${token}">Click</a></p>`, "Reset Your Password",)
+        next()
 
     }
     catch (error) {
@@ -104,14 +104,22 @@ exports.resetPassword = async (req, res, next) => {
     try {
         const password = req.body.password
         const token = req.params.token
-        const user = await User.findOne({ resetTokenForPassword: token })
-        console.log(token)
+        const user = await User.findOne({ resetTokenForPassword: token, resetTokenTime: { $gt: Date.now() } })
+
         if (user.length == 0) {
             return res.status(200).json({
                 status: "fault",
                 message: "Your link has expired !"
             })
         }
+
+        if (password.lenght == 0) {
+            return res.status(200).json({
+                status: "fault",
+                message: "Please enter the password !"
+            })
+        }
+
         await User.findOneAndUpdate({ resetTokenForPassword: token }, { $set: { resetTokenForPassword: "" }, $set: { resetTokenTime: "" }, $set: { password: password } })
         return res.status(200).json({
             status: "success",
