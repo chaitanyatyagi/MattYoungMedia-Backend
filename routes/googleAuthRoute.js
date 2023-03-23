@@ -5,6 +5,7 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/login/success", (req, res) => {
+    // console.log()
     if (req.user) {
         return res.status(200).json({
             status: "success",
@@ -29,7 +30,7 @@ router.route('/google').get(
 
 router.route('/google/callback').get(
     passport.authenticate('google', {
-        successRedirect: 'https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app/daily-image',
+        successRedirect: 'https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app',
         failureRedirect: '/login/failed'
     })
 );
