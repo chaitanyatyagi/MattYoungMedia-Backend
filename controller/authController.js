@@ -86,8 +86,8 @@ exports.forgotPassword = async (req, res, next) => {
             })
         }
         let token = "123456"
-        await User.findOneAndUpdate({ email }, { $set: { resetTokenForPassword: token }, $set: { resetTokenTime: Date.now() + 10 * 60 * 1000 } })
-
+        const x = await User.updateOne({ email }, { resetTokenForPassword: token, resetTokenTime: Date.now() + 10 * 60 * 1000 })
+        console.log(x)
         await sendMail(email, `<p>Please reset your password at this link - <a href="http://127.0.0.1:3000/reset-password?token=${token}">Click</a></p>`, "Reset Your Password",)
 
     }
@@ -105,6 +105,7 @@ exports.resetPassword = async (req, res, next) => {
         const password = req.body.password
         const token = req.params.token
         const user = await User.findOne({ resetTokenForPassword: token })
+        console.log(token)
         if (user.length == 0) {
             return res.status(200).json({
                 status: "fault",
