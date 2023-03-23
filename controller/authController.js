@@ -7,6 +7,13 @@ exports.signup = async (req, res) => {
         const { name, email, password } = req.body
         const user = await User.findOne({ email })
 
+        if (name.length == 0 || email.length == 0 || password.length == 0) {
+            return res.status(200).json({
+                status: "fault",
+                message: "Please fill all the details correctly !"
+            })
+        }
+
         if (user && user.length != 0) {
             return res.status(200).json({
                 status: "fault",
