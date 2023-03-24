@@ -9,7 +9,7 @@ module.exports = function (passport) {
         callbackURL: "/auth/google/callback",
     },
         function (request, accessToken, refreshToken, profile, done) {
-            console.log(profile)
+            console.log("profile", profile, 2)
             return done(null, profile);
         },
     ))

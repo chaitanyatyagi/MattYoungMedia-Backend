@@ -5,7 +5,7 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/login/success", (req, res) => {
-    console.log(req.user)
+    console.log("user", req.user, 1)
     if (req.user) {
         return res.status(200).json({
             status: "success",
@@ -33,6 +33,7 @@ router.route('/google/callback').get(
         successRedirect: 'https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app/',
         failureRedirect: '/login/failed'
     })
+    , () => { console.log("request recieved") }
 )
 
 router.get("/logout", (req, res) => {
