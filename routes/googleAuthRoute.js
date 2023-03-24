@@ -30,7 +30,7 @@ router.route('/google').get(
 
 router.route('/google/callback').get(
     passport.authenticate('google', {
-        successRedirect: 'https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app',
+        successRedirect: 'https://matt-young-media-frontend-jpz8mdruo-chaitanyatyagi.vercel.app/',
         failureRedirect: '/login/failed'
     })
 )
