@@ -5,7 +5,7 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/login/success", (req, res) => {
-    console.log("user", req.user, 1)
+    console.log("user", req, 1)
     if (req.user) {
         return res.status(200).json({
             status: "success",
