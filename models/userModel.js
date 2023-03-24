@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     resetTokenTime: {
         type: Date,
-        default: ""
+        default: null
     }
 })
 

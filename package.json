@@ -10,6 +10,7 @@
   "author": "chaitanya tyagi",
   "license": "ISC",
   "dependencies": {
+    "@supercharge/strings": "^2.0.0",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
